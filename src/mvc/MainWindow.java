@@ -1,5 +1,7 @@
 package mvc;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -13,8 +15,8 @@ public class MainWindow extends JFrame {
 	private static final long serialVersionUID = -7219620606214091173L;
 	private JMenu jMenu1;
     private JMenuBar jMenuBar1;
-    private JMenuItem jMenuItem1;
-    private JMenuItem jMenuItem2;
+    private JMenuItem ItemQuit;
+    private JMenuItem ItemImport;
     private JScrollPane jScrollPane1;
     
     /** Creates new form NewJFrame2 */
@@ -27,18 +29,18 @@ public class MainWindow extends JFrame {
         jScrollPane1 = new JScrollPane();
         jMenuBar1 = new JMenuBar();
         jMenu1 = new JMenu();
-        jMenuItem1 = new JMenuItem();
-        jMenuItem2 = new JMenuItem();
+        ItemQuit = new JMenuItem();
+        ItemImport = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         jMenu1.setText("Fichier");
 
-        jMenuItem1.setText("Importer");
-        jMenu1.add(jMenuItem1);
+        ItemQuit.setText("Importer");
+        jMenu1.add(ItemQuit);
 
-        jMenuItem2.setText("Quitter");
-        jMenu1.add(jMenuItem2);
+        ItemImport.setText("Quitter");
+        jMenu1.add(ItemImport);
 
         jMenuBar1.add(jMenu1);
 
@@ -61,4 +63,12 @@ public class MainWindow extends JFrame {
 
         pack();
     }
+    
+    public void addItemQuitListener(ActionListener actLst) {
+    	ItemQuit.addActionListener(actLst);
+	}
+    
+    public void addItemImportListener(ActionListener actLst) {
+    	ItemImport.addActionListener(actLst);
+	}
 }
