@@ -1,5 +1,6 @@
 package mvc;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -11,17 +12,28 @@ import javax.swing.JPanel;
 public class ImagePanel extends JPanel {
 
 	private static final long serialVersionUID = 2151965732682186633L;
-	private JLabel label;
+	private ImageIcon icon;
+	private JLabel labelIcon;
+	private JLabel labelText;
 	
 	public ImagePanel(String filename, Point position) {
-		ImageIcon icon = new ImageIcon(filename);
-		this.label = new JLabel();
-		this.label.setIcon(icon);
-		this.label.setSize(200,200);
-		this.label.setLocation(position);
-		this.add(this.label);
-		this.setSize(200, 200);
-		this.label.addMouseMotionListener(new MouseMotionListener() {
+		this.icon = new ImageIcon(filename);
+		this.labelIcon = new JLabel();
+		this.labelIcon.setIcon(icon);
+		this.labelIcon.setSize(this.icon.getIconWidth(), this.icon.getIconHeight());
+		this.labelIcon.setLocation(position);
+		this.add(this.labelIcon);
+		this.setSize(this.labelIcon.getWidth(), this.labelIcon.getHeight()+10);
+		
+		this.labelText = new JLabel();
+		this.labelText.setText(this.icon.getDescription());
+		this.add(this.labelText);
+		this.labelText.setSize(this.labelIcon.getWidth(), 10);
+		this.labelText.setLocation(0, this.labelIcon.getHeight());
+		
+		this.setBackground(Color.white);
+		
+		this.labelIcon.addMouseMotionListener(new MouseMotionListener() {
 			
 			@Override
 			public void mouseMoved(MouseEvent arg0) {
