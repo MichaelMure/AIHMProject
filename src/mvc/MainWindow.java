@@ -64,7 +64,7 @@ public class MainWindow extends JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        
+        this.setTitle("Images");
         pack();
     }
     
