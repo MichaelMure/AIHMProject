@@ -1,5 +1,6 @@
 package mvc;
 
+import java.awt.Color;
 import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
@@ -7,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
@@ -18,6 +20,7 @@ public class MainWindow extends JFrame {
     private JMenuItem ItemQuit;
     private JMenuItem ItemImport;
     private JScrollPane jScrollPane1;
+    private JPanel jPanel;
     
     /** Creates new form NewJFrame2 */
     public MainWindow() {
@@ -25,8 +28,14 @@ public class MainWindow extends JFrame {
     }
 
     private void initComponents() {
-
         jScrollPane1 = new JScrollPane();
+        this.getContentPane().add(jScrollPane1);
+        
+        jPanel = new JPanel();
+        jPanel.setBackground(Color.gray);
+        jPanel.setSize(800, 600);
+        jScrollPane1.setViewportView(jPanel);
+        
         jMenuBar1 = new JMenuBar();
         jMenu1 = new JMenu();
         ItemQuit = new JMenuItem();
@@ -46,21 +55,7 @@ public class MainWindow extends JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 273, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))
-        );
-
+        this.setSize(600, 480);
         pack();
     }
     
