@@ -18,8 +18,10 @@ public class ImagePanel extends JPanel {
 	private JLabel labelText;
 	private int xorig, yorig;
 	private int xPanelOrig, yPanelOrig;
+	private boolean selected;
 	
 	public ImagePanel(String filename, Point position) {
+		this.selected = false;
 		this.icon = new ImageIcon(filename);
 		this.labelIcon = new JLabel();
 		this.labelIcon.setIcon(icon);
@@ -38,7 +40,9 @@ public class ImagePanel extends JPanel {
 		this.addMouseListener(new MouseListener() {
 			
 			@Override
-			public void mouseReleased(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent arg0) {
+				unselect();
+			}
 			
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -59,7 +63,9 @@ public class ImagePanel extends JPanel {
 			public void mouseEntered(MouseEvent arg0) {}
 			
 			@Override
-			public void mouseClicked(MouseEvent arg0) {}
+			public void mouseClicked(MouseEvent arg0) {
+				select();
+			}
 		});
 		
 		this.addMouseMotionListener(new MouseMotionListener() {
@@ -76,5 +82,20 @@ public class ImagePanel extends JPanel {
 		
 		
 	}
+	
+	public void select()
+	{
+		this.selected = true;
+		this.setBackground(Color.orange);
+		this.repaint();
+	}
+	
+	public void unselect()
+	{
+		this.selected = false;
+		this.setBackground(Color.white);
+		this.repaint();
+	}
+	
 	
 }
