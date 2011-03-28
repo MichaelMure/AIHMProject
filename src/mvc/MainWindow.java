@@ -6,7 +6,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
-import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 
 public class MainWindow extends JFrame {
@@ -38,7 +37,6 @@ public class MainWindow extends JFrame {
         jMenuItem1.setText("Importer");
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Quitter");
         jMenu1.add(jMenuItem2);
 
