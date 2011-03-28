@@ -6,6 +6,7 @@ import java.awt.event.WindowListener;
 import javax.swing.GroupLayout;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * This class holds the file chooser window.
@@ -30,7 +31,11 @@ public class FileChooserWindow extends JFrame {
     private void initComponents() {
 
         FileChooser = new JFileChooser();
-
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "JPG & PNG Images", "jpg", "png");
+        FileChooser.setFileFilter(filter);
+        
+        
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
