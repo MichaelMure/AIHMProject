@@ -5,8 +5,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 
 
 import mvc.MainWindow;
@@ -14,10 +17,13 @@ import mvc.View;
 
 public class Controller {
 	private View view;
+	private ArrayList<ImageLabel> images;
+	
 	
 	public Controller(View view){
 		this.view = view;
-
+		this.images = new ArrayList<ImageLabel>();
+		
 		initMainWindowListener();
 		initFCWindowListener();
 	}
@@ -65,13 +71,12 @@ public class Controller {
 	class FCActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (JFileChooser.APPROVE_SELECTION.equals(e.getActionCommand())) {
-				File file = new File(view.getFileChooserWindow().getPath());
+				String filename = view.getFileChooserWindow().getPath();
+				File file = new File(filename);
 				if(file.exists()) {
-					try {
-						
-					} catch (Exception e1) {
-						
-					}
+					ImageIcon icon = new ImageIcon(filename, "hello");
+				    JLabel label = new JLabel(icon);
+				    view.getMainWindow().getJScrollPane().add(label, "label");
 				}
 			} else if (JFileChooser.CANCEL_SELECTION.equals(e.getActionCommand())) {
 				// Annulation
