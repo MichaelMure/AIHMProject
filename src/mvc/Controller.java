@@ -72,7 +72,7 @@ public class Controller {
 				File file = new File(filename);
 				if(file.exists()) {
 					
-				    view.getMainWindow().getPanel().add(new ImageLabel(filename, "hello", position));
+				    view.getMainWindow().getPanel().add(new ImagePanel(filename, position));
 				    view.getMainWindow().repaint();
 				    position.setLocation(position.getX() + 10, position.getY() + 10);
 

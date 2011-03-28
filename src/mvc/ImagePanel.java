@@ -6,20 +6,22 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-public class ImageLabel extends JLabel {
-	/**
-	 * 
-	 */
+public class ImagePanel extends JPanel {
+
 	private static final long serialVersionUID = 2151965732682186633L;
-	private ImageIcon icon;
+	private JLabel label;
 	
-	public ImageLabel(String filename, String description, Point position) {
-		this.icon = new ImageIcon(filename, description);
-		this.setIcon(icon);
-		this.setSize(200,200);
-		this.setLocation(position);
-		this.addMouseMotionListener(new MouseMotionListener() {
+	public ImagePanel(String filename, Point position) {
+		ImageIcon icon = new ImageIcon(filename);
+		this.label = new JLabel();
+		this.label.setIcon(icon);
+		this.label.setSize(200,200);
+		this.label.setLocation(position);
+		this.add(this.label);
+		this.setSize(200, 200);
+		this.label.addMouseMotionListener(new MouseMotionListener() {
 			
 			@Override
 			public void mouseMoved(MouseEvent arg0) {
