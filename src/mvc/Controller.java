@@ -69,10 +69,12 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			if (JFileChooser.APPROVE_SELECTION.equals(e.getActionCommand())) {
 				String filename = view.getFileChooserWindow().getPath();
+				String description = view.getFileChooserWindow().getFilename();
+				
 				File file = new File(filename);
 				if(file.exists()) {
 					
-				    view.getMainWindow().getPanel().add(new ImagePanel(filename, position));
+				    view.getMainWindow().getPanel().add(new ImagePanel(filename, description, position));
 				    view.getMainWindow().repaint();
 				    position.setLocation(position.getX() + 10, position.getY() + 10);
 

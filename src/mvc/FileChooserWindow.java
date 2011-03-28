@@ -88,4 +88,8 @@ public class FileChooserWindow extends JFrame {
     public String getPath() {
     	return this.FileChooser.getSelectedFile().getPath();
     }
+    
+    public String getFilename() {
+    	return this.FileChooser.getSelectedFile().getName();
+    }
 }

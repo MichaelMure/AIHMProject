@@ -20,20 +20,20 @@ public class ImagePanel extends JPanel {
 	private int xPanelOrig, yPanelOrig;
 	private boolean selected;
 	
-	public ImagePanel(String filename, Point position) {
+	public ImagePanel(String filename, String description, Point position) {
 		this.selected = false;
-		this.icon = new ImageIcon(filename);
+		this.icon = new ImageIcon(filename, description);
 		this.labelIcon = new JLabel();
 		this.labelIcon.setIcon(icon);
 		this.labelIcon.setSize(this.icon.getIconWidth(), this.icon.getIconHeight());
 		this.labelIcon.setLocation(position);
 		this.add(this.labelIcon);
-		this.setSize(this.labelIcon.getWidth(), this.labelIcon.getHeight()+10);
+		this.setSize(this.labelIcon.getWidth(), this.labelIcon.getHeight()+12);
 		
 		this.labelText = new JLabel();
 		this.labelText.setText(this.icon.getDescription());
 		this.add(this.labelText);
-		this.labelText.setSize(this.labelIcon.getWidth(), 10);
+		this.labelText.setSize(this.labelIcon.getWidth(), 12);
 		this.labelText.setLocation(0, this.labelIcon.getHeight());
 		
 		this.setBackground(Color.white);
