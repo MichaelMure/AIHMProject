@@ -76,6 +76,8 @@ public class Controller {
 			} else if (JFileChooser.CANCEL_SELECTION.equals(e.getActionCommand())) {
 				// Annulation
 			}
+			// Fermeture de la fenêtre
+			view.hideFileChooserWindow();
 		}
 	}
 
