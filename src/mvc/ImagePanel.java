@@ -3,6 +3,7 @@ package mvc;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.ImageIcon;
@@ -15,6 +16,8 @@ public class ImagePanel extends JPanel {
 	private ImageIcon icon;
 	private JLabel labelIcon;
 	private JLabel labelText;
+	private int xorig, yorig;
+	private int xPanelOrig, yPanelOrig;
 	
 	public ImagePanel(String filename, Point position) {
 		this.icon = new ImageIcon(filename);
@@ -32,21 +35,43 @@ public class ImagePanel extends JPanel {
 		this.labelText.setLocation(0, this.labelIcon.getHeight());
 		
 		this.setBackground(Color.white);
-		
-		this.labelIcon.addMouseMotionListener(new MouseMotionListener() {
+		this.addMouseListener(new MouseListener() {
 			
 			@Override
-			public void mouseMoved(MouseEvent arg0) {
-				// TODO Auto-generated method stub
+			public void mouseReleased(MouseEvent arg0) {}
+			
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				xorig = arg0.getX();
+				yorig = arg0.getY();
 				
+				xPanelOrig = (int) getLocation().getX();
+				yPanelOrig = (int) getLocation().getY();
+				
+				System.out.println("pointeur souris origine : "+xorig+", "+yorig);
 			}
+			
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {}
+		});
+		
+		this.addMouseMotionListener(new MouseMotionListener() {
+			@Override
+			public void mouseMoved(MouseEvent arg0) {}
 			
 			@Override
 			public void mouseDragged(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
+				setLocation(xPanelOrig + (arg0.getX() - xorig), yPanelOrig + (arg0.getY() - yorig));
 			}
 		});
+		
+		
 	}
 	
 }
