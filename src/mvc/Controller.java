@@ -65,9 +65,14 @@ public class Controller {
 	class FCActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (JFileChooser.APPROVE_SELECTION.equals(e.getActionCommand())) {
-				
-				// Fichier sélectionné
-				
+				File file = new File(view.getFileChooserWindow().getPath());
+				if(file.exists()) {
+					try {
+						
+					} catch (Exception e1) {
+						
+					}
+				}
 			} else if (JFileChooser.CANCEL_SELECTION.equals(e.getActionCommand())) {
 				// Annulation
 			}
