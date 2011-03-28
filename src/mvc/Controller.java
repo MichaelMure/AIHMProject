@@ -6,12 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.util.ArrayList;
-
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.text.Position;
 
 
 import mvc.MainWindow;
@@ -19,13 +14,12 @@ import mvc.View;
 
 public class Controller {
 	private View view;
-	private ArrayList<ImageLabel> images;
 	private Point position;
 	
 	public Controller(View view){
 		this.view = view;
-		this.images = new ArrayList<ImageLabel>();
 		this.position = new Point(0, 0);
+
 		
 		initMainWindowListener();
 		initFCWindowListener();
