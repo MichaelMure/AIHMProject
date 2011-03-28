@@ -36,11 +36,11 @@ public class MainWindow extends JFrame {
 
         jMenu1.setText("Fichier");
 
-        ItemQuit.setText("Importer");
-        jMenu1.add(ItemQuit);
-
-        ItemImport.setText("Quitter");
+        ItemImport.setText("Importer");
         jMenu1.add(ItemImport);
+
+        ItemQuit.setText("Quitter");
+        jMenu1.add(ItemQuit);
 
         jMenuBar1.add(jMenu1);
 
