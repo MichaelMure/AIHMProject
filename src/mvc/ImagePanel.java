@@ -42,13 +42,14 @@ public class ImagePanel extends JPanel {
 			
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				xorig = arg0.getX();
-				yorig = arg0.getY();
+				xorig = arg0.getXOnScreen();
+				yorig = arg0.getYOnScreen();
 				
 				xPanelOrig = (int) getLocation().getX();
 				yPanelOrig = (int) getLocation().getY();
 				
 				System.out.println("pointeur souris origine : "+xorig+", "+yorig);
+				System.out.println("Position panel  origine : "+xPanelOrig+", "+yPanelOrig);
 			}
 			
 			@Override
@@ -67,7 +68,9 @@ public class ImagePanel extends JPanel {
 			
 			@Override
 			public void mouseDragged(MouseEvent arg0) {
-				setLocation(xPanelOrig + (arg0.getX() - xorig), yPanelOrig + (arg0.getY() - yorig));
+				System.out.println("pointeur souris deplacé : "+arg0.getX()+", "+arg0.getY());
+				System.out.println("déplacement calculé     : "+((int) xPanelOrig + (arg0.getX() - xorig))+", "+((int) yPanelOrig + (arg0.getY() - yorig)));
+				setLocation((int) xPanelOrig + (arg0.getXOnScreen() - xorig), (int) yPanelOrig + (arg0.getYOnScreen() - yorig));
 			}
 		});
 		
