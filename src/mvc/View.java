@@ -18,8 +18,8 @@ public class View {
 		 * Constructor of the view 
 		 * @param model
 		 */
-		public View(Model model) {
-			this.mainWindow = new MainWindow(model);
+		public View() {
+			this.mainWindow = new MainWindow();
 			this.mainWindow.setVisible(true);
 			
 			this.fileChooserWindow = new FileChooserWindow();
