@@ -27,8 +27,8 @@ public class MainWindow extends JFrame {
     }
 
     private void initComponents() {
-        Dimension d1 = new Dimension(200, 300);
-        Dimension d2 = new Dimension(800, 600);
+        Dimension d1 = new Dimension(400, 400);
+        Dimension d2 = new Dimension(800, 800);
 
         this.setPreferredSize(d1);
         this.setSize(d1);
@@ -76,4 +76,9 @@ public class MainWindow extends JFrame {
     public void addItemImportListener(ActionListener actLst) {
     	ItemImport.addActionListener(actLst);
 	}
+    
+    public JPanel getPanel() {
+    	return this.panel;
+    }
+    
 }

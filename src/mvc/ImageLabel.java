@@ -12,7 +12,8 @@ public class ImageLabel extends JLabel {
 	
 	public ImageLabel(String filename, String description) {
 		this.icon = new ImageIcon(filename, description);
-		this.icon.paintIcon(null, null, 0, 0);
+		this.setIcon(icon);
+		this.setSize(200,200);
 	}
 	
 }

@@ -74,9 +74,10 @@ public class Controller {
 				String filename = view.getFileChooserWindow().getPath();
 				File file = new File(filename);
 				if(file.exists()) {
-					ImageIcon icon = new ImageIcon(filename, "hello");
-				    JLabel label = new JLabel(icon);
-				    view.getMainWindow().getJScrollPane().add(label, "label");
+					
+				    
+				    view.getMainWindow().getPanel().add(new ImageLabel(filename, "hello"));
+				    view.getMainWindow().repaint();
 				}
 			} else if (JFileChooser.CANCEL_SELECTION.equals(e.getActionCommand())) {
 				// Annulation
