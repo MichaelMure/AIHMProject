@@ -1,9 +1,5 @@
 package mvc;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
-
 import mvc.FileChooserWindow;
 import mvc.MainWindow;
 
@@ -23,7 +19,6 @@ public class View {
 			this.mainWindow.setVisible(true);
 			
 			this.fileChooserWindow = new FileChooserWindow();
-
 		}
 
 		/**
