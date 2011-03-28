@@ -29,7 +29,7 @@ public class Controller {
 	private void initMainWindowListener() {
 		MainWindow mw = this.view.getMainWindow();
 		mw.addItemQuitListener(new ItemQuitListener());
-		mw.addBtnImportListener(new BtnImportListener());
+		mw.addItemImportListener(new BtnImportListener());
 	}
 	
 	/**
