@@ -1,9 +1,9 @@
 package mvc;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
-import javax.swing.GroupLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -33,7 +33,7 @@ public class MainWindow extends JFrame {
         
         jPanel = new JPanel();
         jPanel.setBackground(Color.gray);
-        jPanel.setSize(800, 600);
+        jPanel.setMinimumSize(new Dimension(800, 600));
         jScrollPane1.setViewportView(jPanel);
         
         jMenuBar1 = new JMenuBar();
@@ -55,7 +55,7 @@ public class MainWindow extends JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        this.setSize(600, 480);
+        this.setMinimumSize(new Dimension(600, 480));
         pack();
     }
     
