@@ -19,8 +19,8 @@ public class MainWindow extends JFrame {
     private JMenuBar jMenuBar1;
     private JMenuItem ItemQuit;
     private JMenuItem ItemImport;
-    private JScrollPane jScrollPane1;
-    private JPanel jPanel;
+    private JScrollPane scrollPane;
+    private JPanel panel;
     
     /** Creates new form NewJFrame2 */
     public MainWindow() {
@@ -28,13 +28,24 @@ public class MainWindow extends JFrame {
     }
 
     private void initComponents() {
-        jScrollPane1 = new JScrollPane();
-        this.getContentPane().add(jScrollPane1);
+        Dimension d1 = new Dimension(200, 300);
+        Dimension d2 = new Dimension(800, 600);
+
+        this.setPreferredSize(d1);
+        this.setSize(d1);
+        this.setMinimumSize(d1);
         
-        jPanel = new JPanel();
-        jPanel.setBackground(Color.gray);
-        jPanel.setMinimumSize(new Dimension(800, 600));
-        jScrollPane1.setViewportView(jPanel);
+        this.setResizable(false);
+
+        this.panel = new JPanel();
+        this.panel.setLayout(null);
+        this.panel.setPreferredSize(d2);
+        this.panel.setSize(d2);
+        this.panel.setMinimumSize(d2);
+        
+        this.scrollPane = new JScrollPane(this.panel);
+        this.setContentPane(this.scrollPane);
+        
         
         jMenuBar1 = new JMenuBar();
         jMenu1 = new JMenu();
@@ -55,7 +66,7 @@ public class MainWindow extends JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        this.setMinimumSize(new Dimension(600, 480));
+        
         pack();
     }
     
