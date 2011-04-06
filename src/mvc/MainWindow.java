@@ -29,15 +29,18 @@ public class MainWindow extends JFrame {
     }
 
     private void initComponents() {
+    	// Dimensions de la fenetre principale, du paneau des images et de la liste
         Dimension mainWDim = new Dimension(800, 800);
         Dimension imagesWDim = new Dimension(1200, 1200);
-
+        Dimension listWDim = new Dimension(300, mainWDim.height);
+        
+        // taille de la fenetre principale 
         this.setPreferredSize(mainWDim);
         this.setSize(mainWDim);
         this.setMinimumSize(mainWDim);
-        
         this.setResizable(false);
 
+        // Fenetre des images
         this.imagePanel = new JPanel();
         this.imagePanel.setLayout(null);
         this.imagePanel.setPreferredSize(imagesWDim);
@@ -46,12 +49,16 @@ public class MainWindow extends JFrame {
         
 
         
+        // Fenetre de scroll image (plus petite que celle des images)
         this.scrollImagePane = new JScrollPane(this.imagePanel);
         
+        // fenetre de split
         this.splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
         		this.scrollImagePane , null);
         
         //this.splitPane.setDividerLocation(mainWDim.width * 3 / 4);
+        
+        // Remplissage de la fenetre principale
         this.setContentPane(splitPane);
 
         jMenuBar1 = new JMenuBar();
