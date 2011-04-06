@@ -15,10 +15,13 @@ public class ImagePanel extends JPanel {
 	private JLabel labelIcon;
 	private JLabel labelText;
 	private boolean selected;
+	private int index;			// Index dans la liste
 	
-	public ImagePanel(String filename, String description, Point position) {
+	public ImagePanel(String filename, String description, Point position, int index) {
 		this.selected = false;
 		this.icon = new ImageIcon(filename, description);
+		this.index = index;
+		
 		this.labelIcon = new JLabel();
 		this.labelIcon.setIcon(icon);
 		this.labelIcon.setSize(this.icon.getIconWidth(), this.icon.getIconHeight());
@@ -65,5 +68,9 @@ public class ImagePanel extends JPanel {
 	
 	public String toString() {
 		return labelText.getText();
+	}
+	
+	public int getIndex() {
+		return this.index;
 	}
 }

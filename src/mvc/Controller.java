@@ -110,7 +110,7 @@ public class Controller {
 				
 				File file = new File(filename);
 				if(file.exists()) {
-					ImagePanel panel = new ImagePanel(filename, description, position);
+					ImagePanel panel = new ImagePanel(filename, description, position, listModel.getSize());
 				    view.getMainWindow().getPanel().add(panel);
 				    //imagePanels.add(panel);
 				    
@@ -149,6 +149,7 @@ public class Controller {
 				panel.setSelected(false);
 			else {					// le panel n'est pas sélectionné => on sélectionne
 				panel.setSelected(true);
+				this.view.getMainWindow().getImageList().setSelectedIndex(panel.getIndex());
 			}
 		} else {
 			// Sélection unique
@@ -158,6 +159,8 @@ public class Controller {
 				((ImagePanel) this.listModel.getElementAt(i)).setSelected(false);
 			}
 			panel.setSelected(true);
+			this.view.getMainWindow().getImageList().setSelectedIndex(panel.getIndex());
+
 		}
 		
 		view.getMainWindow().repaint();
