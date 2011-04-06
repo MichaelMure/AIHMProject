@@ -76,8 +76,9 @@ public class MainWindow extends JFrame {
         // Remplissage de la fenetre principale
         this.setContentPane(splitPane);
 
-        jMenuBar1 = new JMenuBar();
-        jMenu1 = new JMenu();
+        MenuBar = new JMenuBar();
+        MenuFile = new JMenu();
+        MenuEdit = new JMenu();
         ItemQuit = new JMenuItem();
         ItemImport = new JMenuItem();
         ItemDelete = new JMenuItem();
