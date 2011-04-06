@@ -8,6 +8,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.WindowConstants;
 
 public class MainWindow extends JFrame {
@@ -17,8 +18,10 @@ public class MainWindow extends JFrame {
     private JMenuBar jMenuBar1;
     private JMenuItem ItemQuit;
     private JMenuItem ItemImport;
-    private JScrollPane scrollPane;
-    private JPanel panel;
+    private JSplitPane splitPane;
+    private JScrollPane scrollImagePane;
+    private JPanel imagePanel;
+    private JScrollPane scrollListPane;
     
     /** Creates new form NewJFrame2 */
     public MainWindow() {
@@ -26,25 +29,31 @@ public class MainWindow extends JFrame {
     }
 
     private void initComponents() {
-        Dimension d1 = new Dimension(800, 800);
-        Dimension d2 = new Dimension(1200, 1200);
+        Dimension mainWDim = new Dimension(800, 800);
+        Dimension imagesWDim = new Dimension(1200, 1200);
 
-        this.setPreferredSize(d1);
-        this.setSize(d1);
-        this.setMinimumSize(d1);
+        this.setPreferredSize(mainWDim);
+        this.setSize(mainWDim);
+        this.setMinimumSize(mainWDim);
         
         this.setResizable(false);
 
-        this.panel = new JPanel();
-        this.panel.setLayout(null);
-        this.panel.setPreferredSize(d2);
-        this.panel.setSize(d2);
-        this.panel.setMinimumSize(d2);
+        this.imagePanel = new JPanel();
+        this.imagePanel.setLayout(null);
+        this.imagePanel.setPreferredSize(imagesWDim);
+        this.imagePanel.setSize(imagesWDim);
+        this.imagePanel.setMinimumSize(imagesWDim);
         
-        this.scrollPane = new JScrollPane(this.panel);
-        this.setContentPane(this.scrollPane);
+
         
+        this.scrollImagePane = new JScrollPane(this.imagePanel);
         
+        this.splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+        		this.scrollImagePane , null);
+        
+        //this.splitPane.setDividerLocation(mainWDim.width * 3 / 4);
+        this.setContentPane(splitPane);
+
         jMenuBar1 = new JMenuBar();
         jMenu1 = new JMenu();
         ItemQuit = new JMenuItem();
@@ -77,7 +86,7 @@ public class MainWindow extends JFrame {
 	}
     
     public JPanel getPanel() {
-    	return this.panel;
+    	return this.imagePanel;
     }
     
 }
