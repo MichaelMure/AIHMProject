@@ -18,9 +18,11 @@ public class ImagePanel extends JPanel {
 	private JLabel labelText;
 	private int xorig, yorig;
 	private int xPanelOrig, yPanelOrig;
-	private boolean selected;
+	public boolean selected;
+	private Controller controller;
 	
 	public ImagePanel(String filename, String description, Point position) {
+		this.controller = controller;
 		this.selected = false;
 		this.icon = new ImageIcon(filename, description);
 		this.labelIcon = new JLabel();
@@ -37,50 +39,7 @@ public class ImagePanel extends JPanel {
 		this.labelText.setLocation(0, this.labelIcon.getHeight());
 		
 		this.setBackground(Color.white);
-		this.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				unselect();
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				xorig = arg0.getXOnScreen();
-				yorig = arg0.getYOnScreen();
 				
-				xPanelOrig = (int) getLocation().getX();
-				yPanelOrig = (int) getLocation().getY();
-				
-				System.out.println("pointeur souris origine : "+xorig+", "+yorig);
-				System.out.println("Position panel  origine : "+xPanelOrig+", "+yPanelOrig);
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent arg0) {}
-			
-			@Override
-			public void mouseEntered(MouseEvent arg0) {}
-			
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				select();
-			}
-		});
-		
-		this.addMouseMotionListener(new MouseMotionListener() {
-			@Override
-			public void mouseMoved(MouseEvent arg0) {}
-			
-			@Override
-			public void mouseDragged(MouseEvent arg0) {
-				System.out.println("pointeur souris deplacé : "+arg0.getX()+", "+arg0.getY());
-				System.out.println("déplacement calculé     : "+((int) xPanelOrig + (arg0.getX() - xorig))+", "+((int) yPanelOrig + (arg0.getY() - yorig)));
-				setLocation((int) xPanelOrig + (arg0.getXOnScreen() - xorig), (int) yPanelOrig + (arg0.getYOnScreen() - yorig));
-			}
-		});
-		
-		
 	}
 	
 	public void select()

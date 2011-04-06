@@ -3,9 +3,13 @@ package mvc;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.util.ArrayList;
+
 import javax.swing.JFileChooser;
 
 
@@ -15,7 +19,7 @@ import mvc.View;
 public class Controller {
 	private View view;
 	private Point position;
-	
+	private ArrayList<ImagePanel> imagePanels;
 	public Controller(View view){
 		this.view = view;
 		this.position = new Point(0, 0);
@@ -33,6 +37,7 @@ public class Controller {
 		MainWindow mw = this.view.getMainWindow();
 		mw.addItemQuitListener(new ItemQuitListener());
 		mw.addItemImportListener(new BtnImportListener());
+		imagePanels = new ArrayList<ImagePanel>();
 	}
 	
 	/**
@@ -73,8 +78,14 @@ public class Controller {
 				
 				File file = new File(filename);
 				if(file.exists()) {
-					
-				    view.getMainWindow().getPanel().add(new ImagePanel(filename, description, position));
+					ImagePanel panel = new ImagePanel(filename, description, position);
+				    view.getMainWindow().getPanel().add(panel);
+				    imagePanels.add(panel);
+				    
+				    ImagePanelMouseListener ipml = new ImagePanelMouseListener(panel);
+				    panel.addMouseListener(ipml);
+				    panel.addMouseMotionListener(ipml);
+				    
 				    view.getMainWindow().repaint();
 				    position.setLocation(position.getX() + 10, position.getY() + 10);
 
