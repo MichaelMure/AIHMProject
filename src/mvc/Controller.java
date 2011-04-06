@@ -16,6 +16,7 @@ import mvc.MainWindow;
 import mvc.View;
 
 public class Controller {
+<<<<<<< .merge_file_41cDr8
 	private View view;
 	private Point position;
 	private ArrayList<ImagePanel> imagePanels;
@@ -66,29 +67,57 @@ public class Controller {
 		}
 	}
 	
-	/**
-	 * Action listener for the import button in the main window
-	 */
-	class ItemDeleteListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-		}
-	}
-	
-	/**
-	 * Action listener for the import button in the main window
-	 */
-	class ItemAdvanceListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-		}
-	}
-	
-	/**
-	 * Action listener for the import button in the main window
-	 */
-	class ItemRetreatListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-		}
-	}
+	   /**
+	   * Action listener for the import button in the main window
+	   */
+	  class ItemDeleteListener implements ActionListener {
+	    public void actionPerformed(ActionEvent e) {
+	      ArrayList<ImagePanel> tmp = new ArrayList<ImagePanel>();
+	      for (ImagePanel panel : imagePanels) {
+	        if (panel.isSelected()) {
+	          tmp.add(panel);
+	          view.getMainWindow().getPanel().remove(panel);
+	        }
+	      }
+
+	      /* On stocke dans une liste temporaire les image panel a supprimer
+	       * pour éviter de modifier la liste en cours d'iteration */
+	      for (ImagePanel panel : tmp) {
+	        imagePanels.remove(panel);
+	      }
+	      view.getMainWindow().repaint();
+	    }
+	  }
+
+	  /**
+	   * Action listener for the import button in the main window
+	   */
+	  class ItemAdvanceListener implements ActionListener {
+	    public void actionPerformed(ActionEvent e) {
+	      for (ImagePanel panel : imagePanels) {
+	        if (panel.isSelected()) {
+	          int z = view.getMainWindow().getPanel().getComponentZOrder(panel);
+	          view.getMainWindow().getPanel().setComponentZOrder(panel, z-1);
+	        }
+	      }
+	      view.getMainWindow().repaint();
+	    }
+	  }
+
+	  /**
+	   * Action listener for the import button in the main window
+	   */
+	  class ItemRetreatListener implements ActionListener {
+	    public void actionPerformed(ActionEvent e) {
+	      for (ImagePanel panel : imagePanels) {
+	        if (panel.isSelected()) {
+	          int z = view.getMainWindow().getPanel().getComponentZOrder(panel);
+	          view.getMainWindow().getPanel().setComponentZOrder(panel, z+1);
+	        }
+	      }
+	      view.getMainWindow().repaint();
+	    }
+	  }
 	
 	/* FileChooserWindow */
 	/**
@@ -139,6 +168,7 @@ public class Controller {
 			view.hideFileChooserWindow();
 		}
 	}
+	
 
 	public void clickOn(ImagePanel panel, MouseEvent event) {
 		System.out.println(panel);
@@ -180,4 +210,5 @@ public class Controller {
 		}
 		view.getMainWindow().repaint();
 	}
+
 }
