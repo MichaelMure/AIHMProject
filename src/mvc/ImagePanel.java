@@ -2,9 +2,7 @@ package mvc;
 
 import java.awt.Color;
 import java.awt.Point;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -16,13 +14,9 @@ public class ImagePanel extends JPanel {
 	private ImageIcon icon;
 	private JLabel labelIcon;
 	private JLabel labelText;
-	private int xorig, yorig;
-	private int xPanelOrig, yPanelOrig;
 	private boolean selected;
-	private Controller controller;
 	
 	public ImagePanel(String filename, String description, Point position) {
-		this.controller = controller;
 		this.selected = false;
 		this.icon = new ImageIcon(filename, description);
 		this.labelIcon = new JLabel();
