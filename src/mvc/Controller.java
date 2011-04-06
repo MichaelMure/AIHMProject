@@ -20,11 +20,15 @@ public class Controller {
 	private Point position;
 	private ArrayList<ImagePanel> imagePanels;
 	private Controller controller;
+	private ImageListModel listModel;
 	
 	public Controller(View view){
 		this.view = view;
 		this.position = new Point(0, 0);
 		this.controller = this;
+		
+		this.listModel = new ImageListModel();
+		view.getMainWindow().getImageList().setModel(this.listModel);
 		
 		initMainWindowListener();
 		initFCWindowListener();
@@ -86,6 +90,7 @@ public class Controller {
 				    ImagePanelMouseListener ipml = new ImagePanelMouseListener(controller, panel);
 				    panel.addMouseListener(ipml);
 				    panel.addMouseMotionListener(ipml);
+				    listModel.addElement(panel);
 				    
 				    view.getMainWindow().repaint();
 				    position.setLocation(position.getX() + 10, position.getY() + 10);

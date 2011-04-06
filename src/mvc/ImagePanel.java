@@ -62,5 +62,8 @@ public class ImagePanel extends JPanel {
 	public boolean isSelected() {
 		return selected;
 	}
-
+	
+	public String toString() {
+		return labelText.getText();
+	}
 }

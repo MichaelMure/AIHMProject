@@ -34,7 +34,7 @@ public class MainWindow extends JFrame {
     	// Dimensions de la fenetre principale, du paneau des images et de la liste
         Dimension mainWDim = new Dimension(800, 800);
         Dimension imagesWDim = new Dimension(1200, 1200);
-        Dimension listWDim = new Dimension(300, mainWDim.height);
+        Dimension listWDim = new Dimension(300, mainWDim.height - 150);
         
         // taille de la fenetre principale 
         this.setPreferredSize(mainWDim);
@@ -106,4 +106,7 @@ public class MainWindow extends JFrame {
     	return this.imagePanel;
     }
     
+    public JList getImageList() {
+    	return this.listPane;
+    }
 }
