@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -20,10 +19,12 @@ public class Controller {
 	private View view;
 	private Point position;
 	private ArrayList<ImagePanel> imagePanels;
+	private Controller controller;
+	
 	public Controller(View view){
 		this.view = view;
 		this.position = new Point(0, 0);
-
+		this.controller = this;
 		
 		initMainWindowListener();
 		initFCWindowListener();
@@ -82,7 +83,7 @@ public class Controller {
 				    view.getMainWindow().getPanel().add(panel);
 				    imagePanels.add(panel);
 				    
-				    ImagePanelMouseListener ipml = new ImagePanelMouseListener(panel);
+				    ImagePanelMouseListener ipml = new ImagePanelMouseListener(controller, panel);
 				    panel.addMouseListener(ipml);
 				    panel.addMouseMotionListener(ipml);
 				    
@@ -105,5 +106,26 @@ public class Controller {
 		public void windowClosing(WindowEvent e) {
 			view.hideFileChooserWindow();
 		}
+	}
+
+	public void clickOn(ImagePanel panel, MouseEvent event) {
+		
+		
+		if(event.isShiftDown()) {
+			// Sélection multiple
+			if(panel.isSelected()) 	// le panel est déjà sélectionné => on désélectionne
+				panel.setSelected(false);
+			else					// le panel n'est pas sélectionné => on sélectionne
+				panel.setSelected(true);
+		} else {
+			// Sélection unique
+
+			System.out.println("click dans Controller, sélection unique");
+			for (ImagePanel ip : this.imagePanels) {
+			    ip.setSelected(false);
+			}
+			panel.setSelected(true);
+		}
+		view.getMainWindow().repaint();
 	}
 }

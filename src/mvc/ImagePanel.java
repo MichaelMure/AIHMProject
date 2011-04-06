@@ -18,7 +18,7 @@ public class ImagePanel extends JPanel {
 	private JLabel labelText;
 	private int xorig, yorig;
 	private int xPanelOrig, yPanelOrig;
-	public boolean selected;
+	private boolean selected;
 	private Controller controller;
 	
 	public ImagePanel(String filename, String description, Point position) {
@@ -44,6 +44,7 @@ public class ImagePanel extends JPanel {
 	
 	public void select()
 	{
+		System.out.println("select() dans ImagePanel");
 		this.selected = true;
 		this.setBackground(Color.orange);
 		this.repaint();
@@ -56,5 +57,16 @@ public class ImagePanel extends JPanel {
 		this.repaint();
 	}
 	
-	
+	public void setSelected(boolean isSelected) {
+		if(isSelected)
+			select();
+		else
+			unselect();
+		
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
 }

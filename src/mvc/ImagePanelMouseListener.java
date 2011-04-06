@@ -8,8 +8,10 @@ public class ImagePanelMouseListener implements MouseListener, MouseMotionListen
 	ImagePanel panel;
 	private int xorig, yorig;
 	private int xPanelOrig, yPanelOrig;
+	private Controller controller;
 	
-	public ImagePanelMouseListener(ImagePanel panel) {
+	public ImagePanelMouseListener(Controller controller, ImagePanel panel) {
+		this.controller = controller;
 		this.panel = panel;
 	}
 	
@@ -38,10 +40,9 @@ public class ImagePanelMouseListener implements MouseListener, MouseMotionListen
 	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		if(panel.selected)
-			panel.unselect();
-		else
-			panel.select();
+		controller.clickOn(panel, arg0);
+
+
 	}
 	
 	@Override

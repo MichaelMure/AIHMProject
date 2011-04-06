@@ -26,8 +26,8 @@ public class MainWindow extends JFrame {
     }
 
     private void initComponents() {
-        Dimension d1 = new Dimension(400, 400);
-        Dimension d2 = new Dimension(800, 800);
+        Dimension d1 = new Dimension(800, 800);
+        Dimension d2 = new Dimension(1200, 1200);
 
         this.setPreferredSize(d1);
         this.setSize(d1);
