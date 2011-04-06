@@ -16,7 +16,8 @@ import mvc.MainWindow;
 import mvc.View;
 
 public class Controller {
-<<<<<<< .merge_file_41cDr8
+
+
 	private View view;
 	private Point position;
 	private ArrayList<ImagePanel> imagePanels;
