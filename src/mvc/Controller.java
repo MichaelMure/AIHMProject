@@ -41,7 +41,10 @@ public class Controller {
 	private void initMainWindowListener() {
 		MainWindow mw = this.view.getMainWindow();
 		mw.addItemQuitListener(new ItemQuitListener());
-		mw.addItemImportListener(new BtnImportListener());
+		mw.addItemImportListener(new ItemImportListener());
+		mw.addItemDeleteListener(new ItemDeleteListener());
+		mw.addItemAdvanceListener(new ItemAdvanceListener());
+		mw.addItemRetreatListener(new ItemRetreatListener());
 		imagePanels = new ArrayList<ImagePanel>();
 	}
 	
@@ -57,9 +60,33 @@ public class Controller {
 	/**
 	 * Action listener for the import button in the main window
 	 */
-	class BtnImportListener implements ActionListener {
+	class ItemImportListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			view.showFileChooserWindow();
+		}
+	}
+	
+	/**
+	 * Action listener for the import button in the main window
+	 */
+	class ItemDeleteListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+		}
+	}
+	
+	/**
+	 * Action listener for the import button in the main window
+	 */
+	class ItemAdvanceListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+		}
+	}
+	
+	/**
+	 * Action listener for the import button in the main window
+	 */
+	class ItemRetreatListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
 		}
 	}
 	
