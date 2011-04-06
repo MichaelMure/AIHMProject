@@ -31,7 +31,7 @@ public class Controller {
 		
 		this.listModel = new ImageListModel();
 		view.getMainWindow().getImageList().setModel(this.listModel);
-		view.getMainWindow().getImageList().addMouseListener(new ImageListListener(this));
+		view.getMainWindow().getImageList().addListSelectionListener(new ImageListListener(controller));
 		initMainWindowListener();
 		initFCWindowListener();
 	}
@@ -86,6 +86,7 @@ public class Controller {
 	      for (ImagePanel panel : tmp) {
 	        imagePanels.remove(panel);
 	      }
+	      refreshList();
 	      view.getMainWindow().repaint();
 	    }
 	  }
@@ -101,6 +102,7 @@ public class Controller {
 	          view.getMainWindow().getPanel().setComponentZOrder(panel, z-1);
 	        }
 	      }
+	      refreshList();
 	      view.getMainWindow().repaint();
 	    }
 	  }
@@ -116,6 +118,7 @@ public class Controller {
 	          view.getMainWindow().getPanel().setComponentZOrder(panel, z+1);
 	        }
 	      }
+	      refreshList();
 	      view.getMainWindow().repaint();
 	    }
 	  }
@@ -142,13 +145,14 @@ public class Controller {
 				if(file.exists()) {
 					ImagePanel panel = new ImagePanel(filename, description, position, listModel.getSize());
 				    view.getMainWindow().getPanel().add(panel);
-				    //imagePanels.add(panel);
+				    imagePanels.add(panel);
+				    
 				    
 				    ImagePanelMouseListener ipml = new ImagePanelMouseListener(controller, panel);
 				    panel.addMouseListener(ipml);
 				    panel.addMouseMotionListener(ipml);
-				    listModel.addElement(panel);
 				    
+				    refreshList();
 				    view.getMainWindow().repaint();
 				    position.setLocation(position.getX() + 10, position.getY() + 10);
 
@@ -193,23 +197,45 @@ public class Controller {
 			this.view.getMainWindow().getImageList().setSelectedIndex(panel.getIndex());
 
 		}
-		
+		refreshList();
 		view.getMainWindow().repaint();
 	}
 
 	public void refreshList() {
-		// Un click est effectué sur la liste, la liste des éléments a peut-être changé
-		// On déselectionne tout, puis on resélectionne ceux réellement sélectionnés
+		// On efface la liste, puis on recrée les éléments
+		this.listModel.clear();
+		for (ImagePanel panel : imagePanels) {
+			this.listModel.addElement(panel);
+		}
 		
-		for(int i = 0; i < this.listModel.getSize() ; i++) {
-			((ImagePanel) this.listModel.getElementAt(i)).setSelected(false);
-		}	
-		
-		int[] selectedIndices = this.view.getMainWindow().getImageList().getSelectedIndices();
-		for(int i = 0; i < selectedIndices.length ; i++) {
-			((ImagePanel) this.listModel.getElementAt(selectedIndices[i])).setSelected(true);
+		// On récupère la position des éléments sélectionnés
+		ArrayList<Integer> selected = new ArrayList<Integer>();
+		int position = 0;
+		for (ImagePanel panel : imagePanels) {
+			if(panel.isSelected())
+				selected.add(position);
+			position++;
+		}
+
+		this.view.getMainWindow().getImageList().setSelectedIndices(toIntArray(selected));
+	}
+	
+	int[] toIntArray(ArrayList<Integer> list)  {
+	    int[] ret = new int[list.size()];
+	    int i = 0;
+	    for (Integer e : list)  
+	        ret[i++] = e.intValue();
+	    return ret;
+	}
+
+	public void clickOnList() {
+		int[] selected = this.view.getMainWindow().getImageList().getSelectedIndices();
+		for (ImagePanel panel : imagePanels) {
+			panel.setSelected(false);
+		}
+		for(int i = 0; i < selected.length; i++) {
+			((ImagePanel) this.listModel.getElementAt(selected[i])).setSelected(true);
 		}
 		view.getMainWindow().repaint();
 	}
-
 }
