@@ -3,6 +3,7 @@ package mvc;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -21,6 +22,7 @@ public class MainWindow extends JFrame {
     private JSplitPane splitPane;
     private JScrollPane scrollImagePane;
     private JPanel imagePanel;
+    private JList listPane;
     private JScrollPane scrollListPane;
     
     /** Creates new form NewJFrame2 */
@@ -47,16 +49,24 @@ public class MainWindow extends JFrame {
         this.imagePanel.setSize(imagesWDim);
         this.imagePanel.setMinimumSize(imagesWDim);
         
-
+        // Fenetre de la liste
+        this.listPane = new JList();
+        this.listPane.setLayout(null);
+        this.listPane.setPreferredSize(listWDim);
+        this.listPane.setSize(listWDim);
+        this.listPane.setMinimumSize(listWDim);
         
         // Fenetre de scroll image (plus petite que celle des images)
         this.scrollImagePane = new JScrollPane(this.imagePanel);
         
+        // Fenetre de scroll list (moins large que la JList)
+        this.scrollListPane = new JScrollPane(this.listPane);
+        
         // fenetre de split
         this.splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-        		this.scrollImagePane , null);
+        		this.scrollImagePane ,  this.scrollListPane);
         
-        //this.splitPane.setDividerLocation(mainWDim.width * 3 / 4);
+        this.splitPane.setDividerLocation(mainWDim.width * 3 / 4);
         
         // Remplissage de la fenetre principale
         this.setContentPane(splitPane);
