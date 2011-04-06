@@ -30,6 +30,7 @@ public class MainWindow extends JFrame {
     private JList listPane;
     private JScrollPane scrollListPane;
 
+
     /** Creates new form NewJFrame2 */
     public MainWindow() {
         initComponents();
@@ -79,6 +80,7 @@ public class MainWindow extends JFrame {
         MenuBar = new JMenuBar();
         MenuFile = new JMenu();
         MenuEdit = new JMenu();
+
         ItemQuit = new JMenuItem();
         ItemImport = new JMenuItem();
         ItemDelete = new JMenuItem();

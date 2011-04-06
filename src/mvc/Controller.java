@@ -29,7 +29,7 @@ public class Controller {
 		
 		this.listModel = new ImageListModel();
 		view.getMainWindow().getImageList().setModel(this.listModel);
-		
+		view.getMainWindow().getImageList().addMouseListener(new ImageListListener(this));
 		initMainWindowListener();
 		initFCWindowListener();
 	}
@@ -112,7 +112,7 @@ public class Controller {
 				if(file.exists()) {
 					ImagePanel panel = new ImagePanel(filename, description, position);
 				    view.getMainWindow().getPanel().add(panel);
-				    imagePanels.add(panel);
+				    //imagePanels.add(panel);
 				    
 				    ImagePanelMouseListener ipml = new ImagePanelMouseListener(controller, panel);
 				    panel.addMouseListener(ipml);
@@ -141,22 +141,39 @@ public class Controller {
 	}
 
 	public void clickOn(ImagePanel panel, MouseEvent event) {
-		
+		System.out.println(panel);
 		
 		if(event.isShiftDown()) {
 			// Sélection multiple
 			if(panel.isSelected()) 	// le panel est déjà sélectionné => on désélectionne
 				panel.setSelected(false);
-			else					// le panel n'est pas sélectionné => on sélectionne
+			else {					// le panel n'est pas sélectionné => on sélectionne
 				panel.setSelected(true);
+			}
 		} else {
 			// Sélection unique
 
 			System.out.println("click dans Controller, sélection unique");
-			for (ImagePanel ip : this.imagePanels) {
-			    ip.setSelected(false);
+			for(int i =0; i < this.listModel.getSize() ; i++) {
+				((ImagePanel) this.listModel.getElementAt(i)).setSelected(false);
 			}
 			panel.setSelected(true);
+		}
+		
+		view.getMainWindow().repaint();
+	}
+
+	public void refreshList() {
+		// Un click est effectué sur la liste, la liste des éléments a peut-être changé
+		// On déselectionne tout, puis on resélectionne ceux réellement sélectionnés
+		
+		for(int i = 0; i < this.listModel.getSize() ; i++) {
+			((ImagePanel) this.listModel.getElementAt(i)).setSelected(false);
+		}	
+		
+		int[] selectedIndices = this.view.getMainWindow().getImageList().getSelectedIndices();
+		for(int i = 0; i < selectedIndices.length ; i++) {
+			((ImagePanel) this.listModel.getElementAt(selectedIndices[i])).setSelected(true);
 		}
 		view.getMainWindow().repaint();
 	}
