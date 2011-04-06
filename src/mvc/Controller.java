@@ -31,7 +31,7 @@ public class Controller {
 		
 		this.listModel = new ImageListModel();
 		view.getMainWindow().getImageList().setModel(this.listModel);
-		view.getMainWindow().getImageList().addListSelectionListener(new ImageListListener(controller));
+		view.getMainWindow().getImageList().addMouseListener(new ImageListListener(controller));
 		initMainWindowListener();
 		initFCWindowListener();
 	}
@@ -99,7 +99,7 @@ public class Controller {
 	      for (ImagePanel panel : imagePanels) {
 	        if (panel.isSelected()) {
 	          int z = view.getMainWindow().getPanel().getComponentZOrder(panel);
-	          view.getMainWindow().getPanel().setComponentZOrder(panel, z-1);
+	          view.getMainWindow().getPanel().setComponentZOrder(panel, (z-1 > 0 ) ? z - 1 : 0 );
 	        }
 	      }
 	      refreshList();
@@ -115,7 +115,7 @@ public class Controller {
 	      for (ImagePanel panel : imagePanels) {
 	        if (panel.isSelected()) {
 	          int z = view.getMainWindow().getPanel().getComponentZOrder(panel);
-	          view.getMainWindow().getPanel().setComponentZOrder(panel, z+1);
+	          view.getMainWindow().getPanel().setComponentZOrder(panel, (z + 1 < Integer.MAX_VALUE) ? z+1 : 0);
 	        }
 	      }
 	      refreshList();
@@ -143,7 +143,7 @@ public class Controller {
 				
 				File file = new File(filename);
 				if(file.exists()) {
-					ImagePanel panel = new ImagePanel(filename, description, position, listModel.getSize());
+					ImagePanel panel = new ImagePanel(filename, description, position);
 				    view.getMainWindow().getPanel().add(panel);
 				    imagePanels.add(panel);
 				    
@@ -184,17 +184,15 @@ public class Controller {
 				panel.setSelected(false);
 			else {					// le panel n'est pas sélectionné => on sélectionne
 				panel.setSelected(true);
-				this.view.getMainWindow().getImageList().setSelectedIndex(panel.getIndex());
 			}
 		} else {
 			// Sélection unique
 
 			System.out.println("click dans Controller, sélection unique");
-			for(int i =0; i < this.listModel.getSize() ; i++) {
-				((ImagePanel) this.listModel.getElementAt(i)).setSelected(false);
+			for (ImagePanel p : imagePanels) {
+				p.setSelected(false);
 			}
 			panel.setSelected(true);
-			this.view.getMainWindow().getImageList().setSelectedIndex(panel.getIndex());
 
 		}
 		refreshList();
@@ -204,19 +202,16 @@ public class Controller {
 	public void refreshList() {
 		// On efface la liste, puis on recrée les éléments
 		this.listModel.clear();
-		for (ImagePanel panel : imagePanels) {
-			this.listModel.addElement(panel);
-		}
-		
-		// On récupère la position des éléments sélectionnés
 		ArrayList<Integer> selected = new ArrayList<Integer>();
 		int position = 0;
+
 		for (ImagePanel panel : imagePanels) {
+			this.listModel.addElement(panel);
 			if(panel.isSelected())
 				selected.add(position);
 			position++;
 		}
-
+		
 		this.view.getMainWindow().getImageList().setSelectedIndices(toIntArray(selected));
 	}
 	

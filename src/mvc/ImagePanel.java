@@ -15,9 +15,8 @@ public class ImagePanel extends JPanel {
   private JLabel labelIcon;
   private JLabel labelText;
   private boolean selected;
-  private int index;      // Index dans la liste
 
-  public ImagePanel(String filename, String description, Point position, int index) {
+  public ImagePanel(String filename, String description, Point position) {
     this.selected = false;
     this.icon = new ImageIcon(filename, description);
     this.labelIcon = new JLabel();
@@ -39,7 +38,7 @@ public class ImagePanel extends JPanel {
 
   public void select()
   {
-    System.out.println("select() dans ImagePanel");
+    System.out.println("select(true) dans ImagePanel");
     this.selected = true;
     this.setBackground(Color.orange);
     this.repaint();
@@ -68,7 +67,4 @@ public class ImagePanel extends JPanel {
     return labelText.getText();
   }
 
-  public int getIndex() {
-    return this.index;
-  }
 }
