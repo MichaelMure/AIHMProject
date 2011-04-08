@@ -9,7 +9,7 @@ import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class ImageListListener implements  MouseListener {
+public class ImageListListener implements  MouseListener, ListSelectionListener {
 	private Controller controller;
 	
 	public ImageListListener(Controller controller) {
@@ -46,6 +46,13 @@ public class ImageListListener implements  MouseListener {
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void valueChanged(ListSelectionEvent arg0) {
+		controller.clickOnList();
 		
 	}
 

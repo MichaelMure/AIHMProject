@@ -20,7 +20,7 @@ public class Controller {
 
 	private View view;
 	private Point position;
-	private ArrayList<ImagePanel> imagePanels;
+	//private ArrayList<ImagePanel> imagePanels;
 	private Controller controller;
 	private ImageListModel listModel;
 	
@@ -31,7 +31,8 @@ public class Controller {
 		
 		this.listModel = new ImageListModel();
 		view.getMainWindow().getImageList().setModel(this.listModel);
-		view.getMainWindow().getImageList().addMouseListener(new ImageListListener(controller));
+		// view.getMainWindow().getImageList().addMouseListener(new ImageListListener(controller));
+		view.getMainWindow().getImageList().addListSelectionListener(new ImageListListener(controller));
 		initMainWindowListener();
 		initFCWindowListener();
 	}
@@ -47,7 +48,7 @@ public class Controller {
 		mw.addItemDeleteListener(new ItemDeleteListener());
 		mw.addItemAdvanceListener(new ItemAdvanceListener());
 		mw.addItemRetreatListener(new ItemRetreatListener());
-		imagePanels = new ArrayList<ImagePanel>();
+		//imagePanels = new ArrayList<ImagePanel>();
 	}
 	
 	/**
@@ -74,7 +75,7 @@ public class Controller {
 	  class ItemDeleteListener implements ActionListener {
 	    public void actionPerformed(ActionEvent e) {
 	      ArrayList<ImagePanel> tmp = new ArrayList<ImagePanel>();
-	      for (ImagePanel panel : imagePanels) {
+	      for (ImagePanel panel : listModel.getPanels()) {
 	        if (panel.isSelected()) {
 	          tmp.add(panel);
 	          view.getMainWindow().getPanel().remove(panel);
@@ -84,9 +85,9 @@ public class Controller {
 	      /* On stocke dans une liste temporaire les image panel a supprimer
 	       * pour éviter de modifier la liste en cours d'iteration */
 	      for (ImagePanel panel : tmp) {
-	        imagePanels.remove(panel);
+	    	  listModel.getPanels().remove(panel);
 	      }
-	      refreshList();
+	      //refreshList();
 	      view.getMainWindow().repaint();
 	    }
 	  }
@@ -96,13 +97,13 @@ public class Controller {
 	   */
 	  class ItemAdvanceListener implements ActionListener {
 	    public void actionPerformed(ActionEvent e) {
-	      for (ImagePanel panel : imagePanels) {
+	      for (ImagePanel panel : listModel.getPanels()) {
 	        if (panel.isSelected()) {
 	          int z = view.getMainWindow().getPanel().getComponentZOrder(panel);
 	          view.getMainWindow().getPanel().setComponentZOrder(panel, (z-1 > 0 ) ? z - 1 : 0 );
 	        }
 	      }
-	      refreshList();
+	      //refreshList();
 	      view.getMainWindow().repaint();
 	    }
 	  }
@@ -112,13 +113,13 @@ public class Controller {
 	   */
 	  class ItemRetreatListener implements ActionListener {
 	    public void actionPerformed(ActionEvent e) {
-	      for (ImagePanel panel : imagePanels) {
+	      for (ImagePanel panel : listModel.getPanels()) {
 	        if (panel.isSelected()) {
 	          int z = view.getMainWindow().getPanel().getComponentZOrder(panel);
 	          view.getMainWindow().getPanel().setComponentZOrder(panel, (z + 1 < Integer.MAX_VALUE) ? z+1 : 0);
 	        }
 	      }
-	      refreshList();
+	      //refreshList();
 	      view.getMainWindow().repaint();
 	    }
 	  }
@@ -145,14 +146,14 @@ public class Controller {
 				if(file.exists()) {
 					ImagePanel panel = new ImagePanel(filename, description, position);
 				    view.getMainWindow().getPanel().add(panel);
-				    imagePanels.add(panel);
-				    
+				    //imagePanels.add(panel);
+				    listModel.addElement(panel);
 				    
 				    ImagePanelMouseListener ipml = new ImagePanelMouseListener(controller, panel);
 				    panel.addMouseListener(ipml);
 				    panel.addMouseMotionListener(ipml);
 				    
-				    refreshList();
+				    //refreshList();
 				    view.getMainWindow().repaint();
 				    position.setLocation(position.getX() + 10, position.getY() + 10);
 
@@ -174,31 +175,39 @@ public class Controller {
 		}
 	}
 	
-
+	/**
+	 * Fonction appelée lors d'un clic sur une image.
+	 * Doit dire à l'image qu'elle a été sélectionnée,
+	 * puis synchronise la selection de la liste
+	 * @param panel
+	 * @param event
+	 */
 	public void clickOn(ImagePanel panel, MouseEvent event) {
 		System.out.println(panel);
 		
 		if(event.isShiftDown()) {
 			// Sélection multiple
-			if(panel.isSelected()) 	// le panel est déjà sélectionné => on désélectionne
+			if(panel.isSelected()) {	// le panel est déjà sélectionné => on désélectionne
 				panel.setSelected(false);
-			else {					// le panel n'est pas sélectionné => on sélectionne
+			} else {					// le panel n'est pas sélectionné => on sélectionne
 				panel.setSelected(true);
 			}
 		} else {
 			// Sélection unique
-
+			// On déselectionne tous les éléments, et on sélectionne celui cliqué
 			System.out.println("click dans Controller, sélection unique");
-			for (ImagePanel p : imagePanels) {
+			for (ImagePanel p : listModel.getPanels()) {
 				p.setSelected(false);
 			}
 			panel.setSelected(true);
 
 		}
-		refreshList();
+		// Synchronisation pour mettre à jour la sélection de la liste
+		view.getMainWindow().getImageList().setSelectedIndices(listModel.getSelectedIndices());
+
 		view.getMainWindow().repaint();
 	}
-
+/*
 	public void refreshList() {
 		// On efface la liste, puis on recrée les éléments
 		this.listModel.clear();
@@ -214,18 +223,12 @@ public class Controller {
 		
 		this.view.getMainWindow().getImageList().setSelectedIndices(toIntArray(selected));
 	}
-	
-	int[] toIntArray(ArrayList<Integer> list)  {
-	    int[] ret = new int[list.size()];
-	    int i = 0;
-	    for (Integer e : list)  
-	        ret[i++] = e.intValue();
-	    return ret;
-	}
+*/
+
 
 	public void clickOnList() {
 		int[] selected = this.view.getMainWindow().getImageList().getSelectedIndices();
-		for (ImagePanel panel : imagePanels) {
+		for (ImagePanel panel : listModel.getPanels()) {
 			panel.setSelected(false);
 		}
 		for(int i = 0; i < selected.length; i++) {
